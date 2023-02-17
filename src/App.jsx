@@ -15,7 +15,7 @@ function App() {
         <Header/>
       <div className="mt-12 flexNew content-center">
         <Formulario setPacientes = { setPacientes } pacientes = { pacientes } />
-        <ListadoPacientes/>
+        <ListadoPacientes pacientes = { pacientes }/>
       </div>
     </div>
   )
