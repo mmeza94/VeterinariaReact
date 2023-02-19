@@ -1,23 +1,41 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useFormulario } from "../Hooks/useFormulario";
+import { ErrorComponent } from "./ErrorComponent"
 
 
 
-export const Formulario = ( { setPacientes, pacientes } ) => {
+export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } ) => {
 
-  const {  nombreMascota, nombrePropietario, email, alta, sintomas, onInputChanged,ResetFormularioInputs  } = useFormulario({
+
+
+  const {  nombreMascota, nombrePropietario, email, alta, sintomas, onInputChanged,ResetFormularioInputs,setFormularioInputs  } = useFormulario({
     nombreMascota:"",
     nombrePropietario:"",
     email:"",
     alta: "",
     sintomas:""
-
-});
+  });
 
  
-const [error, setError] = useState(false);
+ const [error, setError] = useState(false);
 
 
+  useEffect(() => {
+    if(Object.keys(paciente)) //Si el objeto tiene informacion, entonces ...
+    {
+      console.log(paciente);
+      setFormularioInputs(paciente);
+    }
+  }, [paciente])
+  
+
+
+ const generarId = () => {
+    const random = Math.random().toString(36).substr(2);
+    const fecha = Date.now().toString(36);
+
+    return random + fecha ;
+ }
 
 
  const hanldeSubmit = (e) => {
@@ -30,7 +48,27 @@ const [error, setError] = useState(false);
 
     setError(false);
 
-    setPacientes( [ ...pacientes, {nombreMascota, nombrePropietario, email, alta, sintomas} ] );
+    
+
+    const pacienteInstance = {nombreMascota, nombrePropietario, email, alta, sintomas }
+
+    if(paciente.id){
+
+      pacienteInstance.id = paciente.id;
+
+      const pacientesActualizado = pacientes.map( pacienteState => 
+        pacienteState.id === paciente.id ? pacienteInstance : pacienteState   )
+
+      setPacientes(pacientesActualizado);
+
+      setPaciente({});
+
+
+
+    }else{
+      pacienteInstance.id = generarId();
+      setPacientes( [ ...pacientes, pacienteInstance ] );
+    }
 
     ResetFormularioInputs();
  }
@@ -52,7 +90,7 @@ const [error, setError] = useState(false);
         <form onSubmit={ hanldeSubmit } 
               className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
 
-          {error && (<p className="bg-red-600 text-white text-center p-3 uppercase font-bold mb-3 rounded-md"> Todos los campos son obligatorios </p>)}
+          {error && <ErrorComponent/>}
 
 
 
@@ -154,7 +192,7 @@ const [error, setError] = useState(false);
           <input 
               type="submit" 
               className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-              value= "Agregar Paciente"/>
+              value= { paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }/>
 
 
         </form>

@@ -1,30 +1,69 @@
+
 import { Pacientes } from "./Pacientes"
 
 
 
 
 
-export const ListadoPacientes = ( { pacientes } ) => {
+export const ListadoPacientes = ( { pacientes, setPaciente, EliminarPaciente } ) => {
+
+
+  
+
+
+
+
   return (
     <div className="md:w-1/2 lg:w-2/5 md:h-screen overflow-auto">
 
-      <h2 className="font-black text-3xl text-center">ListadoPacientes</h2>
+          {pacientes && pacientes.length 
+            ?
+              <>
+                <h2 className="font-black text-3xl text-center">ListadoPacientes</h2>
 
-      <p className="text-xl mt-5 mb-10 text-center">  
-        Administra tus{' '}
-        <span className="text-indigo-600 font-bold text-xl">Pacientes y Citas</span>
-      </p>
-      
+                <p className="text-xl mt-5 mb-10 text-center">  
+                  Administra tus{' '}
+                  <span className="text-indigo-600 font-bold text-xl">Pacientes y Citas</span>
+                </p>
 
-     
 
-    <div>
-      {
-          pacientes.map( ( paciente ) => (
-            <Pacientes key={ paciente.nombrePropietario}   paciente= { paciente }/>
-          ))
-      }
-    </div>
+
+
+                <div>
+                  {
+                      pacientes.map( ( paciente ) => (
+                        <Pacientes key={ paciente.id }   paciente= { paciente }  setPaciente = { setPaciente } EliminarPaciente = { EliminarPaciente }/>
+                      ))
+                  }
+                </div>
+              
+              
+              
+              </>
+
+            :
+
+              <>
+                  <h2 className="font-black text-3xl text-center">No hay pacientes</h2>
+
+                  <p className="text-xl mt-5 mb-10 text-center">  
+                    Comienza agregando pacientes...{' '}
+                   
+                  </p>
+              
+              
+              </>
+          
+        
+        
+        
+        
+        
+        
+        
+        }
+
+
 
 
 

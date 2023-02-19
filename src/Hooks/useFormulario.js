@@ -16,6 +16,8 @@ export const useFormulario = ( initialValue ) => {
       //console.log(formularioInputs);
      }
 
+     
+
      const ResetFormularioInputs = () => {
         setFormularioInputs(initialValue);
      }
@@ -25,6 +27,7 @@ export const useFormulario = ( initialValue ) => {
     return {
         ...formularioInputs, 
         onInputChanged,
+        setFormularioInputs,
         ResetFormularioInputs,
     }
 
