@@ -6,10 +6,10 @@ export const useInsertApi = async ( pacienteNuevo ) => {
 
     const url = 'https://localhost:7096/veterinaria/api'
 
-    console.log( pacienteNuevo )
+    //console.log( pacienteNuevo )
     
     const response = await axios.post(url, pacienteNuevo);
 
-    console.log(response)
+    //console.log(response)
 
 }

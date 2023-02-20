@@ -9,12 +9,12 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
 
 
 
-  const {  nombreMascota, propietario, email, alta, síntomas, onInputChanged,ResetFormularioInputs,setFormularioInputs  } = useFormulario({
+  const {  nombreMascota, propietario, email, FechaAlta, síntomas, onInputChanged,ResetFormularioInputs,setFormularioInputs  } = useFormulario({
     citaId:"",
     nombreMascota:"",
     propietario:"",
     email:"",
-    alta: "",
+    FechaAlta: "",
     síntomas:""
   });
 
@@ -44,7 +44,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
     e.preventDefault();
 
     //Validacion de campos vacios...
-    if([nombreMascota, propietario, email, alta, síntomas].includes('')){
+    if([nombreMascota, propietario, email, FechaAlta, síntomas].includes('')){
       setError(true);
       console.log('Hay un campo vacio')
       return;
@@ -54,9 +54,9 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
 
     
 
-    const pacienteInstance = { nombreMascota, propietario, email, alta, síntomas }
+    const pacienteInstance = { nombreMascota, propietario, email, FechaAlta, síntomas }
 
-    console.log(pacienteInstance);
+
 
     useInsertApi( pacienteInstance );
 
@@ -168,7 +168,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
 
           <div className="mb-5">
             <label 
-                htmlFor="alta" 
+                htmlFor="FechaAlta" 
                 className="block text-gray-700 uppercase font-bold">
 
                   Alta
@@ -176,10 +176,10 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
             </label>
 
             <input 
-                id="alta"
+                id="FechaAlta"
                 className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md" 
                 type="date" 
-                value={ alta }
+                value={ FechaAlta }
                 onChange= { onInputChanged }
                 />
           </div>

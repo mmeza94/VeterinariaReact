@@ -5,6 +5,7 @@ import { Formulario } from './Components/Formulario'
 import { ListadoPacientes } from './Components/ListadoPacientes'
 import { useState, useEffect } from 'react'
 import { useFetchApi } from './Hooks/useFetchApi'
+import { useDeletePaciente } from './Hooks/useDeletePaciente' 
 
 
 
@@ -56,10 +57,10 @@ useEffect(() => {
 
 
 
-  const EliminarPaciente = (id) => {
+  const EliminarPaciente = async (id) => {
 
-    const pacientesActualizados = pacientes.filter( paciente => paciente.id !== id);
-    setPacientes(pacientesActualizados);
+    const res = await useDeletePaciente(id);
+    GetData();
 
   }
 
@@ -75,7 +76,9 @@ useEffect(() => {
                     setPaciente = { setPaciente }
                     GetData = { GetData }/>
 
-        <ListadoPacientes pacientes = { pacientes } setPaciente= { setPaciente } EliminarPaciente = { EliminarPaciente }/>
+        <ListadoPacientes pacientes = { pacientes } 
+                          setPaciente= { setPaciente } 
+                          EliminarPaciente = { EliminarPaciente }/>
       </div>
 
     </div>

@@ -31,7 +31,7 @@ export const Pacientes = ({ paciente, setPaciente, EliminarPaciente }) => {
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Fecha Alta: {''}
-          <span className="font-normal normal-case">{ paciente.fechaAlta }</span>
+          <span className="font-normal normal-case">{ paciente.FechaAlta }</span>
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Síntomas: {''}
