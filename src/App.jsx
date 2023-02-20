@@ -23,6 +23,14 @@ function App() {
 
 const GetData = async () => {
   const InitialData = await useFetchApi();
+  // useFetchApi().then((r)=>{
+  //   setPacientes(r.data);
+  //   console.log(r.data);
+  //   console.log('datos obtenidos')
+  // })
+  // .catch((error)=>{
+  //   console.log(error);
+  // });
   setPacientes(InitialData);
   console.log('Llamando a GetData....');
 
@@ -35,6 +43,14 @@ const UpdateData = async (paciente)=>{
    
    
 }
+
+const EliminarPaciente = async (id) => {
+    
+  const res = await useDeletePaciente(id);
+  GetData();
+
+}
+
 
 
 useEffect(() => {
@@ -67,12 +83,6 @@ useEffect(() => {
 
 
 
-  const EliminarPaciente = async (id) => {
-    
-    const res = await useDeletePaciente(id);
-    GetData();
-
-  }
 
 
   return (

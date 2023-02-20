@@ -33,7 +33,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
 
 
 
- const hanldeSubmit = (e) => {
+ const hanldeSubmit = async (e) => {
     e.preventDefault();
 
     //Validacion de campos vacios...
@@ -61,15 +61,15 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
       //Update
       console.log()
       pacienteInstance.citaId = paciente.citaId
-      UpdateData( pacienteInstance );
-      GetData();
+      await UpdateData( pacienteInstance );
+      await GetData();
 
     
     }else{
 
       //Insert
-      useInsertApi( pacienteInstance );
-      GetData();
+      await useInsertApi( pacienteInstance );
+      await GetData();
     }
 
     ResetFormularioInputs();

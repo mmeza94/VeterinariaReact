@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-export const Pacientes = ({ paciente, setPaciente, EliminarPaciente, UpdateData }) => {
+export const Pacientes = ({ paciente, setPaciente, EliminarPaciente }) => {
 
 
   const handleEliminar = () => {
