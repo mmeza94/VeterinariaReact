@@ -10,7 +10,7 @@ export const Pacientes = ({ paciente, setPaciente, EliminarPaciente }) => {
     
     if(respuesta){
 
-      EliminarPaciente(paciente.id);
+      EliminarPaciente(paciente.citaId);
     }
   }
 
@@ -23,7 +23,7 @@ export const Pacientes = ({ paciente, setPaciente, EliminarPaciente }) => {
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Propietario: {''}
-          <span className="font-normal normal-case">{ paciente.nombrePropietario }</span>
+          <span className="font-normal normal-case">{ paciente.propietario }</span>
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Email: {''}
@@ -31,11 +31,11 @@ export const Pacientes = ({ paciente, setPaciente, EliminarPaciente }) => {
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Fecha Alta: {''}
-          <span className="font-normal normal-case">{ paciente.alta }</span>
+          <span className="font-normal normal-case">{ paciente.fechaAlta }</span>
         </p>
 
         <p className="font-bold mb-3 text-gray-700 uppercase">Síntomas: {''}
-          <span className="font-normal normal-case">{ paciente.sintomas }</span>
+          <span className="font-normal normal-case">{ paciente.síntomas }</span>
         </p>
 
 

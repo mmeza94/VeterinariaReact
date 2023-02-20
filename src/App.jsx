@@ -4,33 +4,53 @@ import { Header } from './Components/Header'
 import { Formulario } from './Components/Formulario'
 import { ListadoPacientes } from './Components/ListadoPacientes'
 import { useState, useEffect } from 'react'
+import { useFetchApi } from './Hooks/useFetchApi'
+
 
 
 function App() {
+
+
+
   
   const [ pacientes, setPacientes ] = useState([]);
 
   const [ paciente, setPaciente ] = useState({});
 
-useEffect(
-  () => {
 
-    const obtenerLS = () => {
 
-      const pacientesLS = JSON.parse(localStorage.getItem('pacientes'))
-         ?? [];
-      console.log( pacientesLS );
-    }
-    obtenerLS();
-  }
-  ,[])
+const GetData = async() => {
+  const InitialData = await useFetchApi();
+  setPacientes(InitialData);
+  console.log('Llamando a GetData....');
+}
+
+
+useEffect(() => {
+  
+  GetData();
+  
+}, [])
+
+// useEffect(
+//   () => {
+
+//     const obtenerLS = () => {
+
+//       JSON.parse(localStorage.getItem('pacientes'))
+//          ?? [];
+//       //console.log( pacientesLS );
+//     }
+//     obtenerLS();
+//   }
+//   ,[])
 
 
  
-useEffect(() => {
+// useEffect(() => {
 
-  localStorage.setItem('pacientes', JSON.stringify( pacientes ))
-  }, [pacientes])
+//   localStorage.setItem('pacientes', JSON.stringify( pacientes ))
+//   }, [pacientes])
   
 
 
@@ -49,7 +69,11 @@ useEffect(() => {
         <Header/>
 
       <div className="mt-12 flexNew content-center">
-        <Formulario setPacientes = { setPacientes } pacientes = { pacientes } paciente = { paciente } setPaciente = { setPaciente }/>
+        <Formulario setPacientes = { setPacientes } 
+                    pacientes = { pacientes } 
+                    paciente = { paciente } 
+                    setPaciente = { setPaciente }
+                    GetData = { GetData }/>
 
         <ListadoPacientes pacientes = { pacientes } setPaciente= { setPaciente } EliminarPaciente = { EliminarPaciente }/>
       </div>
@@ -58,6 +82,5 @@ useEffect(() => {
   )
 }
 
-// mt-12 flex content-center max-w-full
 
 export default App

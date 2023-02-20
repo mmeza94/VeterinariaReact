@@ -1,5 +1,7 @@
 
 import { Pacientes } from "./Pacientes"
+import  { useEffect } from 'react'
+
 
 
 
@@ -9,6 +11,7 @@ export const ListadoPacientes = ( { pacientes, setPaciente, EliminarPaciente } )
 
 
   
+
 
 
 
@@ -32,7 +35,7 @@ export const ListadoPacientes = ( { pacientes, setPaciente, EliminarPaciente } )
                 <div>
                   {
                       pacientes.map( ( paciente ) => (
-                        <Pacientes key={ paciente.id }   paciente= { paciente }  setPaciente = { setPaciente } EliminarPaciente = { EliminarPaciente }/>
+                        <Pacientes key={ paciente.citaId }   paciente= { paciente }  setPaciente = { setPaciente } EliminarPaciente = { EliminarPaciente }/>
                       ))
                   }
                 </div>

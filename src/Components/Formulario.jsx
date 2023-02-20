@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react"
 import { useFormulario } from "../Hooks/useFormulario";
+import { useInsertApi } from "../Hooks/useInsertApi";
 import { ErrorComponent } from "./ErrorComponent"
 
 
 
-export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } ) => {
+export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, GetData } ) => {
 
 
 
-  const {  nombreMascota, nombrePropietario, email, alta, sintomas, onInputChanged,ResetFormularioInputs,setFormularioInputs  } = useFormulario({
+  const {  nombreMascota, propietario, email, alta, síntomas, onInputChanged,ResetFormularioInputs,setFormularioInputs  } = useFormulario({
+    citaId:"",
     nombreMascota:"",
-    nombrePropietario:"",
+    propietario:"",
     email:"",
     alta: "",
-    sintomas:""
+    síntomas:""
   });
 
  
@@ -40,37 +42,51 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
 
  const hanldeSubmit = (e) => {
     e.preventDefault();
-    if([nombreMascota, nombrePropietario, email, alta, sintomas].includes('')){
+
+    //Validacion de campos vacios...
+    if([nombreMascota, propietario, email, alta, síntomas].includes('')){
       setError(true);
       console.log('Hay un campo vacio')
       return;
     }
-
+    
     setError(false);
 
     
 
-    const pacienteInstance = {nombreMascota, nombrePropietario, email, alta, sintomas }
+    const pacienteInstance = { nombreMascota, propietario, email, alta, síntomas }
 
-    if(paciente.id){
+    console.log(pacienteInstance);
 
-      pacienteInstance.id = paciente.id;
+    useInsertApi( pacienteInstance );
 
-      const pacientesActualizado = pacientes.map( pacienteState => 
-        pacienteState.id === paciente.id ? pacienteInstance : pacienteState   )
-
-      setPacientes(pacientesActualizado);
-
-      setPaciente({});
-
-
-
-    }else{
-      pacienteInstance.id = generarId();
-      setPacientes( [ ...pacientes, pacienteInstance ] );
-    }
+    GetData();
 
     ResetFormularioInputs();
+
+    // //Decidimos si va es update o insert
+    // if(paciente.citaId){
+
+    //   //Update
+    //   pacienteInstance.citaId = paciente.citaId;
+
+    //   const pacientesActualizado = pacientes.map( pacienteState => 
+    //     pacienteState.citaId === paciente.citaId ? pacienteInstance : pacienteState   )
+
+    //   setPacientes(pacientesActualizado);
+
+    //   setPaciente({});
+
+
+
+    // }else{
+
+    //   //Insert
+    //   pacienteInstance.citaId = generarId();
+    //   useInsertApi( pacienteInstance );
+    // }
+
+    
  }
 
 
@@ -115,7 +131,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
 
           <div className="mb-5">
             <label 
-                htmlFor="nombrePropietario" 
+                htmlFor="propietario" 
                 className="block text-gray-700 uppercase font-bold">
 
                   Nombre Propietario
@@ -123,11 +139,11 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
             </label>
 
             <input 
-                id="nombrePropietario"
+                id="propietario"
                 className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md" 
                 type="text" 
                 placeholder="Nombre del propietario"
-                value={ nombrePropietario }
+                value={ propietario }
                 onChange= { onInputChanged }/>
           </div>
 
@@ -171,7 +187,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
 
           <div className="mb-5">
             <label 
-                htmlFor="sintomas" 
+                htmlFor="síntomas" 
                 className="block text-gray-700 uppercase font-bold">
 
                 Síntomas
@@ -179,10 +195,10 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
             </label>
 
             <textarea
-                id="sintomas"
+                id="síntomas"
                 className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md" 
                 placeholder="Descripción"
-                value={ sintomas }
+                value={ síntomas }
                 onChange= { onInputChanged }
             />
           </div>
@@ -192,7 +208,7 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente } )
           <input 
               type="submit" 
               className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-              value= { paciente.id ? 'Editar Paciente' : 'Agregar Paciente' }/>
+              value= { paciente.citaId ? 'Editar Paciente' : 'Agregar Paciente' }/>
 
 
         </form>
