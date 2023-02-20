@@ -5,7 +5,7 @@ import { ErrorComponent } from "./ErrorComponent"
 
 
 
-export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, GetData } ) => {
+export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, GetData,UpdateData } ) => {
 
 
 
@@ -25,19 +25,12 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
   useEffect(() => {
     if(Object.keys(paciente)) //Si el objeto tiene informacion, entonces ...
     {
-      console.log(paciente);
+      //console.log(paciente);
       setFormularioInputs(paciente);
     }
   }, [paciente])
   
 
-
- const generarId = () => {
-    const random = Math.random().toString(36).substr(2);
-    const fecha = Date.now().toString(36);
-
-    return random + fecha ;
- }
 
 
  const hanldeSubmit = (e) => {
@@ -58,33 +51,28 @@ export const Formulario = ( { setPacientes, pacientes, paciente, setPaciente, Ge
 
 
 
-    useInsertApi( pacienteInstance );
+    
 
-    GetData();
+    
+
+    //Decidimos si va es update o insert
+    if(paciente.citaId){
+
+      //Update
+      console.log()
+      pacienteInstance.citaId = paciente.citaId
+      UpdateData( pacienteInstance );
+      GetData();
+
+    
+    }else{
+
+      //Insert
+      useInsertApi( pacienteInstance );
+      GetData();
+    }
 
     ResetFormularioInputs();
-
-    // //Decidimos si va es update o insert
-    // if(paciente.citaId){
-
-    //   //Update
-    //   pacienteInstance.citaId = paciente.citaId;
-
-    //   const pacientesActualizado = pacientes.map( pacienteState => 
-    //     pacienteState.citaId === paciente.citaId ? pacienteInstance : pacienteState   )
-
-    //   setPacientes(pacientesActualizado);
-
-    //   setPaciente({});
-
-
-
-    // }else{
-
-    //   //Insert
-    //   pacienteInstance.citaId = generarId();
-    //   useInsertApi( pacienteInstance );
-    // }
 
     
  }

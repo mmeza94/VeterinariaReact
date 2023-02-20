@@ -6,6 +6,7 @@ import { ListadoPacientes } from './Components/ListadoPacientes'
 import { useState, useEffect } from 'react'
 import { useFetchApi } from './Hooks/useFetchApi'
 import { useDeletePaciente } from './Hooks/useDeletePaciente' 
+import { useUpdatePaciente } from './Hooks/useUpdatePaciente'
 
 
 
@@ -20,10 +21,19 @@ function App() {
 
 
 
-const GetData = async() => {
+const GetData = async () => {
   const InitialData = await useFetchApi();
   setPacientes(InitialData);
   console.log('Llamando a GetData....');
+
+}
+
+
+const UpdateData = async (paciente)=>{
+   const res = await useUpdatePaciente(paciente);
+   setPaciente({});
+   
+   
 }
 
 
@@ -58,7 +68,7 @@ useEffect(() => {
 
 
   const EliminarPaciente = async (id) => {
-
+    
     const res = await useDeletePaciente(id);
     GetData();
 
@@ -74,11 +84,13 @@ useEffect(() => {
                     pacientes = { pacientes } 
                     paciente = { paciente } 
                     setPaciente = { setPaciente }
-                    GetData = { GetData }/>
+                    GetData = { GetData }
+                    UpdateData = { UpdateData }/>
 
         <ListadoPacientes pacientes = { pacientes } 
                           setPaciente= { setPaciente } 
-                          EliminarPaciente = { EliminarPaciente }/>
+                          EliminarPaciente = { EliminarPaciente }
+                          />
       </div>
 
     </div>
